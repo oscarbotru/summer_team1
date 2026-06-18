@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Загрузка...</title>
+  <meta name="description" id="page-desc" content="" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <script src="config.js"></script>
+</head>
+<body>
+
+<!-- ─── Nav ─── -->
+<nav class="nav" aria-label="Навигация">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-mark" id="nav-mark"></div>
+      <span id="nav-studio"></span>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="#gallery">Галерея</a>
+      <a class="nav-link" href="#news">Devlog</a>
+      <a class="nav-link" href="#team">Команда</a>
+      <a class="nav-link" href="#roadmap">Roadmap</a>
+      <a class="nav-link" href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section class="hero" id="hero" aria-label="Главный экран">
+  <!-- фон: картинка (опционально) + overlay — заполняются из config.hero -->
+  <div class="hero-bg-img" id="hero-bg-img" aria-hidden="true"></div>
+  <div class="hero-bg-overlay" id="hero-bg-overlay" aria-hidden="true"></div>
+  <div class="hero-noise" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span id="hero-status"></span>
+    </div>
+
+    <h1 id="hero-title"></h1>
+    <p class="hero-tagline" id="hero-tagline"></p>
+    <p class="hero-desc"    id="hero-desc"></p>
+
+    <!-- Таймер -->
+    <div class="timer-wrap">
+      <div class="timer-label-top" id="timer-label"></div>
+      <div class="timer">
+        <div class="timer-cell">
+          <div class="timer-num" id="t-days">00</div>
+          <div class="timer-unit">дней</div>
+        </div>
+        <div class="timer-sep" aria-hidden="true">:</div>
+        <div class="timer-cell">
+          <div class="timer-num" id="t-hours">00</div>
+          <div class="timer-unit">часов</div>
+        </div>
+        <div class="timer-sep" aria-hidden="true">:</div>
+        <div class="timer-cell">
+          <div class="timer-num" id="t-mins">00</div>
+          <div class="timer-unit">минут</div>
+        </div>
+        <div class="timer-sep" aria-hidden="true">:</div>
+        <div class="timer-cell">
+          <div class="timer-num" id="t-secs">00</div>
+          <div class="timer-unit">секунд</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="hero-cta">
+      <button class="btn btn-primary"
+        onclick="document.querySelector('#subscribe').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-bell" aria-hidden="true"></i>
+        Следить за новостями
+      </button>
+      <a class="btn btn-ghost" id="hero-trailer" href="#" target="_blank" rel="noopener">
+        <i class="ti ti-player-play" aria-hidden="true"></i>
+        Смотреть трейлер
+      </a>
+    </div>
+
+    <!-- Платформы -->
+    <div class="platform-list" id="platform-list" aria-label="Платформы"></div>
+  </div>
+</section>
+
+<!-- ─── Галерея ─── -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-eyebrow">Галерея</div>
+    <h2 class="section-title">Скриншоты и арты</h2>
+    <p class="section-sub">Визуальные материалы из игры — в процессе разработки</p>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр">
+  <span class="lightbox-close" id="lightbox-close" aria-label="Закрыть">✕</span>
+  <img class="lightbox-img" id="lightbox-img" src="https://gothic.thqnordic.com/_next/image?url=%2Fgame-sites%2Fgothic%2Feditions%2Fstandard-edition.png&w=3840&q=75" alt="" />
+</div>
+
+<!-- ─── Devlog ─── -->
+<section id="news">
+  <div class="container">
+    <div class="section-eyebrow">Devlog</div>
+    <h2 class="section-title">Последние новости</h2>
+    <p class="section-sub">Обновления о прогрессе разработки</p>
+    <div class="news-list" id="news-list"></div>
+  </div>
+</section>
+
+<!-- ─── Команда ─── -->
+<section id="team">
+  <div class="container">
+    <div class="section-eyebrow">Авторство</div>
+    <h2 class="section-title">Кто делает игру</h2>
+    <p class="section-sub" id="team-sub"></p>
+    <div class="team-grid" id="team-grid"></div>
+  </div>
+</section>
+
+<!-- ─── Roadmap ─── -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-eyebrow">Roadmap</div>
+    <h2 class="section-title">Этапы разработки</h2>
+    <p class="section-sub">Что готово, что в работе, что впереди</p>
+    <div class="roadmap-list" id="roadmap-list"></div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Часто задаваемые вопросы</h2>
+    <p class="section-sub">Коротко о главном</p>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ─── Подписка ─── -->
+<section id="subscribe">
+  <div class="container">
+    <div class="subscribe-box">
+      <h2>Узнай первым о релизе</h2>
+      <p>Оставь email — пришлём письмо в день выхода</p>
+      <div class="email-row">
+        <input class="email-input" type="email" placeholder="твой@email.com"
+               id="email-input" aria-label="Email для подписки" />
+        <button class="btn btn-primary" onclick="handleSubscribe()">
+          <i class="ti ti-send" aria-hidden="true"></i> Подписаться
+        </button>
+      </div>
+      <p id="subscribe-msg" style="margin-top:12px;font-size:13px;min-height:18px;"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left" id="footer-copy"></div>
+    <div class="footer-links" id="footer-links"></div>
+  </div>
+</footer>
+
+<!-- ─── Конфиг ─── -->
+<script src="config.js"></script>
+
+<!-- ─── Инициализация ─── -->
+<script>
+const $ = id => document.getElementById(id);
+const el = (tag, cls, html) => {
+  const e = document.createElement(tag);
+  if (cls)  e.className = cls;
+  if (html) e.innerHTML = html;
+  return e;
+};
+const MONTHS = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const parseDate = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y,m-1,d); };
+
+const G = GAME_CONFIG;
+
+/* ── meta ── */
+document.title = `${G.game.title} — ${G.studio.name}`;
+$('page-desc').content = G.game.description;
+
+/* ── nav ── */
+$('nav-mark').textContent = G.studio.name[0];
+$('nav-studio').textContent = G.studio.name;
+
+/* ── hero ── */
+$('hero-status').textContent  = G.game.status;
+$('hero-title').textContent   = G.game.title;
+$('hero-tagline').textContent = G.game.tagline;
+$('hero-desc').textContent    = G.game.subtitle;
+$('hero-trailer').href        = G.game.trailer;
+
+/* hero background — опциональная картинка из конфига */
+const heroBgImg     = $('hero-bg-img');
+const heroBgOverlay = $('hero-bg-overlay');
+
+if (G.hero.bgImage) {
+  /* картинка задана — показываем её */
+  heroBgImg.style.backgroundImage = `url('${G.hero.bgImage}')`;
+  /* overlay: полупрозрачный поверх картинки */
+  const opacity = G.hero.bgOverlay ?? 0.7;
+  heroBgOverlay.style.background = `rgba(0,0,0,${opacity})`;
+} else {
+  /* картинки нет — overlay = сплошной фон (уже задан в CSS как var(--c-bg)) */
+  heroBgImg.style.display = 'none';
+}
+
+/* платформы */
+const platformIcons = { Windows: 'ti-brand-windows', macOS: 'ti-brand-apple', Browser: 'ti-world' };
+G.game.platforms.forEach(p => {
+  const b = el('div', 'platform-badge');
+  b.innerHTML = `<i class="ti ${platformIcons[p]||'ti-device-laptop'}" aria-hidden="true"></i> ${p}`;
+  $('platform-list').appendChild(b);
+});
+
+/* ── таймер ── */
+const releaseDate = parseDate(G.release.date);
+$('timer-label').textContent =
+  `${G.release.label} · ${releaseDate.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})}`;
+
+function tick() {
+  let diff = Math.max(0, Math.floor((releaseDate - new Date()) / 1000));
+  const d = Math.floor(diff/86400); diff %= 86400;
+  const h = Math.floor(diff/3600);  diff %= 3600;
+  const m = Math.floor(diff/60);
+  const s = diff % 60;
+  const p = n => String(n).padStart(2,'0');
+  $('t-days').textContent  = p(d);
+  $('t-hours').textContent = p(h);
+  $('t-mins').textContent  = p(m);
+  $('t-secs').textContent  = p(s);
+}
+tick(); setInterval(tick, 1000);
+
+/* ── галерея ── */
+G.gallery.forEach(item => {
+  const div = el('div','gallery-item');
+  if (item.src) {
+    div.innerHTML = `<img src="${item.src}" alt="${item.caption}" loading="lazy">`;
+    div.addEventListener('click', () => openLightbox(item.src, item.caption));
+  } else {
+    div.innerHTML = `
+      <div class="gallery-placeholder">
+        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="m21 15-5-5L5 21"/>
+        </svg>
+        ${item.caption}
+      </div>`;
+  }
+  div.appendChild(el('div','gallery-caption',item.caption));
+  $('gallery-grid').appendChild(div);
+});
+
+function openLightbox(src, alt) {
+  $('lightbox-img').src = src;
+  $('lightbox-img').alt = alt;
+  $('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  $('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+$('lightbox-close').addEventListener('click', closeLightbox);
+$('lightbox').addEventListener('click', e => { if(e.target === $('lightbox')) closeLightbox(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+/* ── новости ── */
+G.news.forEach(item => {
+  const d    = parseDate(item.date);
+  const card = el('div','news-card');
+  const tag  = item.tag.toLowerCase();
+  card.innerHTML = `
+    <div class="news-date">
+      <div class="news-day">${d.getDate()}</div>
+      <div class="news-month">${MONTHS[d.getMonth()]}</div>
+    </div>
+    <div>
+      <span class="news-tag tag-${tag}">${item.tag}</span>
+      <div class="news-title">${item.title}</div>
+      <div class="news-text">${item.text}</div>
+    </div>`;
+  $('news-list').appendChild(card);
+});
+
+/* ── команда ── */
+$('team-sub').textContent = G.studio.course;
+const socialIcons = { github:'ti-brand-github', twitter:'ti-brand-twitter',
+  instagram:'ti-brand-instagram', soundcloud:'ti-brand-soundcloud', vk:'ti-brand-vk' };
+
+G.team.forEach(member => {
+  const links = Object.entries(member.links)
+    .map(([s,h]) => `<a href="${h}" target="_blank" rel="noopener" aria-label="${s}">
+      <i class="ti ${socialIcons[s]||'ti-link'}" aria-hidden="true"></i></a>`).join('');
+  const card = el('div','team-card');
+  card.innerHTML = `
+    <div class="avatar">${member.initials}</div>
+    <div class="team-name">${member.name}</div>
+    <div class="team-role">${member.role}</div>
+    <div class="team-links">${links}</div>`;
+  $('team-grid').appendChild(card);
+});
+
+/* ── roadmap ── */
+const rmLabels = { done:'Готово', active:'В процессе' };
+G.roadmap.forEach((step, i) => {
+  const isLast = i === G.roadmap.length - 1;
+  const badge  = step.status === 'todo' ? step.date : rmLabels[step.status];
+  const row    = el('div','rm-row');
+  row.innerHTML = `
+    <div class="rm-spine">
+      <div class="rm-dot ${step.status}"></div>
+      ${!isLast ? '<div class="rm-line"></div>' : ''}
+    </div>
+    <div class="rm-content">
+      <div class="rm-title">${step.title}</div>
+      <div class="rm-desc">${step.desc}</div>
+      <span class="rm-badge ${step.status}">${badge}</span>
+    </div>`;
+  $('roadmap-list').appendChild(row);
+});
+
+/* ── FAQ ── */
+G.faq.forEach(item => {
+  const div = el('div','faq-item');
+  div.innerHTML = `
+    <button class="faq-q">${item.q}<span class="faq-icon" aria-hidden="true">+</span></button>
+    <div class="faq-a">${item.a}</div>`;
+  div.querySelector('.faq-q').addEventListener('click', () => {
+    const open = div.classList.contains('open');
+    $('faq-list').querySelectorAll('.faq-item.open').forEach(x => x.classList.remove('open'));
+    if (!open) div.classList.add('open');
+  });
+  $('faq-list').appendChild(div);
+});
+
+/* ── footer ── */
+$('footer-copy').textContent = `© ${new Date().getFullYear()} ${G.studio.name} · ${G.studio.course}`;
+[['itch.io', G.studio.links.itchio], ['GitHub', G.studio.links.github],
+ ['VK', G.studio.links.vk], ['Discord', G.studio.links.discord]].forEach(([label, href]) => {
+  const a = el('a'); a.href = href; a.target = '_blank'; a.rel = 'noopener';
+  a.textContent = label;
+  $('footer-links').appendChild(a);
+});
+
+/* ── подписка ── */
+function handleSubscribe() {
+  const input = $('email-input');
+  const msg   = $('subscribe-msg');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    msg.style.color = 'var(--c-accent-2)';
+    msg.textContent = 'Введи корректный email.';
+    return;
+  }
+  msg.style.color = '#5cb87a';
+  msg.textContent = `Записали! Пришлём на ${email} когда выйдет.`;
+  input.value = '';
+}
+$('email-input').addEventListener('keydown', e => { if(e.key==='Enter') handleSubscribe(); });
+</script>
+</body>
+</html>

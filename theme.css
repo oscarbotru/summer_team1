@@ -1,0 +1,73 @@
+/*
+ * =============================================================
+ *  ТЕМА — все цвета и шрифты меняются здесь
+ * =============================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500&display=swap');
+
+:root {
+  /* --- Основная палитра --- */
+  --c-bg:         #0e0c0a;   /* фон страницы */
+  --c-surface:    #181410;   /* карточки */
+  --c-surface-2:  #201c18;   /* вложенные поверхности */
+  --c-border:     #ffffff0f;
+  --c-border-mid: #ffffff1e;
+
+  /* --- Акцент (меняй под стиль игры) --- */
+  --c-accent:     #e8612a;   /* оранжево-красный — огонь, энергия */
+  --c-accent-dim: #e8612a18;
+  --c-accent-2:   #f0b429;   /* янтарный — второй акцент */
+
+  /* --- Текст --- */
+  --c-text:       #f0ece6;
+  --c-text-mid:   #8a8078;
+  --c-text-dim:   #4a453f;
+
+  /* --- Roadmap --- */
+  --c-done:       #5cb87a;
+  --c-done-bg:    #5cb87a14;
+  --c-active:     #e8612a;
+  --c-active-bg:  #e8612a18;
+  --c-todo:       #4a453f;
+  --c-todo-bg:    #ffffff08;
+
+  /* --- Теги новостей --- */
+  --c-tag-gameplay-bg: #e8612a18; --c-tag-gameplay-fg: #e8612a;
+  --c-tag-арт-bg:      #f0b42918; --c-tag-арт-fg:      #f0b429;
+  --c-tag-апдейт-bg:   #5cb87a18; --c-tag-апдейт-fg:   #5cb87a;
+
+  /* --- Шрифты --- */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* --- Размеры --- */
+  --radius:    8px;
+  --radius-lg: 14px;
+  --max-w:     860px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+a { color: var(--c-accent); text-decoration: none; }
+a:hover { opacity: 0.75; }
+::selection { background: var(--c-accent-dim); }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb { background: var(--c-border-mid); border-radius: 3px; }
