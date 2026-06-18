@@ -1,49 +1,51 @@
 /*
  * =============================================================
- *  ТЕМА — все цвета и шрифты меняются здесь
+ *  ТЕМА Emojii — жёлтый, зелёный, салатовый, оранжевый
  * =============================================================
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
 
 :root {
   /* --- Основная палитра --- */
-  --c-bg:         #0e0c0a;   /* фон страницы */
-  --c-surface:    #181410;   /* карточки */
-  --c-surface-2:  #201c18;   /* вложенные поверхности */
-  --c-border:     #ffffff0f;
-  --c-border-mid: #ffffff1e;
+  --c-bg:         #142210;
+  --c-surface:    #1c3018;
+  --c-surface-2:  #243820;
+  --c-border:     #ffffff12;
+  --c-border-mid: #ffffff22;
 
-  /* --- Акцент (меняй под стиль игры) --- */
-  --c-accent:     #e8612a;   /* оранжево-красный — огонь, энергия */
-  --c-accent-dim: #e8612a18;
-  --c-accent-2:   #f0b429;   /* янтарный — второй акцент */
+  /* --- Акценты: жёлтый, зелёный, салатовый, оранжевый --- */
+  --c-accent:     #ff8c1a;
+  --c-accent-dim: #ff8c1a22;
+  --c-accent-2:   #ffd23f;
+  --c-green:      #3d9e3d;
+  --c-lime:       #b8e635;
 
   /* --- Текст --- */
-  --c-text:       #f0ece6;
-  --c-text-mid:   #8a8078;
-  --c-text-dim:   #4a453f;
+  --c-text:       #f5f8e8;
+  --c-text-mid:   #a8c49a;
+  --c-text-dim:   #5e7a52;
 
   /* --- Roadmap --- */
-  --c-done:       #5cb87a;
-  --c-done-bg:    #5cb87a14;
-  --c-active:     #e8612a;
-  --c-active-bg:  #e8612a18;
-  --c-todo:       #4a453f;
+  --c-done:       #b8e635;
+  --c-done-bg:    #b8e63518;
+  --c-active:     #ff8c1a;
+  --c-active-bg:  #ff8c1a20;
+  --c-todo:       #5e7a52;
   --c-todo-bg:    #ffffff08;
 
   /* --- Теги новостей --- */
-  --c-tag-gameplay-bg: #e8612a18; --c-tag-gameplay-fg: #e8612a;
-  --c-tag-арт-bg:      #f0b42918; --c-tag-арт-fg:      #f0b429;
-  --c-tag-апдейт-bg:   #5cb87a18; --c-tag-апдейт-fg:   #5cb87a;
+  --c-tag-gameplay-bg: #ff8c1a20; --c-tag-gameplay-fg: #ff8c1a;
+  --c-tag-арт-bg:      #ffd23f22; --c-tag-арт-fg:      #ffd23f;
+  --c-tag-апдейт-bg:   #3d9e3d22; --c-tag-апдейт-fg:   #b8e635;
 
   /* --- Шрифты --- */
-  --font-display: 'Syne', sans-serif;
+  --font-display: 'Nunito', sans-serif;
   --font-body:    'Inter', sans-serif;
 
   /* --- Размеры --- */
-  --radius:    8px;
-  --radius-lg: 14px;
+  --radius:    10px;
+  --radius-lg: 16px;
   --max-w:     860px;
 }
 
@@ -65,9 +67,9 @@ h1, h2, h3, h4 {
   line-height: 1.1;
 }
 
-a { color: var(--c-accent); text-decoration: none; }
-a:hover { opacity: 0.75; }
-::selection { background: var(--c-accent-dim); }
-::-webkit-scrollbar { width: 5px; }
+a { color: var(--c-accent-2); text-decoration: none; }
+a:hover { opacity: 0.8; }
+::selection { background: var(--c-accent-dim); color: var(--c-text); }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--c-bg); }
-::-webkit-scrollbar-thumb { background: var(--c-border-mid); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--c-green); border-radius: 3px; }

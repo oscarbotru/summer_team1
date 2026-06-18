@@ -28,11 +28,13 @@ section:last-of-type { border-bottom: none; }
   letter-spacing: 0.02em;
 }
 .nav-logo-mark {
-  width: 22px; height: 22px; border-radius: 5px;
-  background: var(--c-accent);
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--c-accent-2), var(--c-accent));
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; color: #fff; font-weight: 800;
+  font-size: 14px; font-weight: 800;
+  box-shadow: 0 0 12px var(--c-accent-dim);
 }
+.logo-ii { color: var(--c-lime); }
 .nav-links { display: flex; gap: 28px; }
 .nav-link { font-size: 13px; color: var(--c-text-mid); transition: color 0.15s; }
 .nav-link:hover { color: var(--c-text); }
@@ -56,7 +58,11 @@ section:last-of-type { border-bottom: none; }
 }
 .hero-bg-overlay {
   position: absolute; inset: 0;
-  background: var(--c-bg); /* fallback без картинки */
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, #3d9e3d28 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, #ff8c1a18 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 10% 60%, #b8e63515 0%, transparent 50%),
+    var(--c-bg);
 }
 /* когда картинка есть — overlay становится полупрозрачным (задаётся из JS) */
 
@@ -72,8 +78,8 @@ section:last-of-type { border-bottom: none; }
 .hero::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--c-accent);
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-green), var(--c-lime), var(--c-accent-2), var(--c-accent));
 }
 
 .hero-inner { position: relative; z-index: 1; width: 100%; max-width: 600px; }
@@ -94,7 +100,10 @@ section:last-of-type { border-bottom: none; }
 
 .hero h1 {
   font-size: clamp(44px, 9vw, 80px);
-  color: #fff;
+  background: linear-gradient(135deg, var(--c-accent-2) 0%, var(--c-lime) 45%, var(--c-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: -0.03em;
   line-height: 1;
   margin-bottom: 20px;
@@ -131,7 +140,7 @@ section:last-of-type { border-bottom: none; }
 }
 .timer-num {
   font-family: var(--font-display); font-size: 28px; font-weight: 800;
-  color: #fff; font-variant-numeric: tabular-nums; line-height: 1;
+  color: var(--c-accent-2); font-variant-numeric: tabular-nums; line-height: 1;
 }
 .timer-unit {
   font-size: 9px; color: var(--c-text-dim);
@@ -157,8 +166,12 @@ section:last-of-type { border-bottom: none; }
   cursor: pointer; border: none; transition: opacity 0.15s, transform 0.1s;
 }
 .btn:active { transform: scale(0.97); }
-.btn-primary { background: var(--c-accent); color: #fff; }
-.btn-primary:hover { opacity: 0.85; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--c-accent), #e07010);
+  color: #fff;
+  box-shadow: 0 4px 16px var(--c-accent-dim);
+}
+.btn-primary:hover { opacity: 0.9; box-shadow: 0 6px 20px var(--c-accent-dim); }
 .btn-ghost {
   background: transparent; color: var(--c-text-mid);
   border: 1px solid var(--c-border-mid);
@@ -172,8 +185,10 @@ section:last-of-type { border-bottom: none; }
   position: relative; z-index: 1;
 }
 .platform-badge {
-  background: transparent; border: 1px solid var(--c-border);
-  color: var(--c-text-dim); font-size: 11px;
+  background: #3d9e3d18;
+  border: 1px solid #3d9e3d44;
+  color: var(--c-lime);
+  font-size: 11px;
   padding: 4px 12px; border-radius: 20px;
   display: flex; align-items: center; gap: 5px;
 }
@@ -185,7 +200,45 @@ section:last-of-type { border-bottom: none; }
   text-transform: uppercase; letter-spacing: 0.14em;
   margin-bottom: 10px;
 }
-.section-title { font-size: 28px; color: #fff; margin-bottom: 6px; }
+.section-title { font-size: 28px; color: var(--c-text); margin-bottom: 6px; }
+
+/* ─── Сюжет ─── */
+
+.story-text {
+  font-size: 15px; color: var(--c-text-mid);
+  line-height: 1.75; max-width: 640px;
+  padding: 20px 24px;
+  border-left: 3px solid var(--c-lime);
+  background: var(--c-surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* ─── Требования ─── */
+
+.req-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+}
+.req-card {
+  border: 1px solid var(--c-border-mid);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  background: var(--c-surface);
+}
+.req-card-title {
+  font-family: var(--font-display); font-size: 14px; font-weight: 800;
+  color: var(--c-accent-2); margin-bottom: 14px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.req-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.req-item {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 13px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--c-border);
+}
+.req-item:last-child { border-bottom: none; padding-bottom: 0; }
+.req-label { color: var(--c-text-dim); flex-shrink: 0; }
+.req-value { color: var(--c-text); text-align: right; }
+
 .section-sub { font-size: 14px; color: var(--c-text-mid); margin-bottom: 36px; }
 
 /* ─── Галерея ─── */
@@ -228,6 +281,27 @@ section:last-of-type { border-bottom: none; }
 }
 .lightbox-close:hover { opacity: 1; }
 
+/* пасхалка */
+.easter-egg {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.92); z-index: 1000;
+  align-items: center; justify-content: center;
+  animation: easter-fade-in 0.25s ease;
+}
+.easter-egg.open { display: flex; }
+.easter-egg-img {
+  max-width: min(90vw, 720px);
+  max-height: 85vh;
+  border-radius: var(--radius);
+  box-shadow: 0 0 40px #ffd23f33;
+}
+@keyframes easter-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.news-card--secret { cursor: default; }
+
 /* ─── Новости ─── */
 
 .news-list { display: flex; flex-direction: column; gap: 1px; }
@@ -245,7 +319,7 @@ section:last-of-type { border-bottom: none; }
 .news-card:hover { background: var(--c-surface-2); }
 
 .news-date { text-align: center; padding-top: 2px; }
-.news-day { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+.news-day { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--c-accent-2); line-height: 1; }
 .news-month { font-size: 9px; color: var(--c-text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px; }
 
 .news-tag {
@@ -272,10 +346,10 @@ section:last-of-type { border-bottom: none; }
 
 .avatar {
   width: 44px; height: 44px; border-radius: 50%;
-  background: var(--c-surface-2);
-  border: 1px solid var(--c-border-mid);
-  color: var(--c-accent);
-  font-family: var(--font-display); font-size: 12px; font-weight: 800;
+  background: linear-gradient(135deg, var(--c-green), var(--c-lime));
+  border: none;
+  color: #142210;
+  font-family: var(--font-display); font-size: 18px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 12px;
 }
@@ -337,13 +411,15 @@ section:last-of-type { border-bottom: none; }
   border-radius: var(--radius-lg);
   padding: 48px 40px; text-align: center;
   position: relative; overflow: hidden;
+  background: linear-gradient(160deg, var(--c-surface) 0%, #1a2e14 100%);
 }
 /* тонкий акцент сверху */
 .subscribe-box::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 1px; background: var(--c-accent);
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-green), var(--c-lime), var(--c-accent-2), var(--c-accent));
 }
-.subscribe-box h2 { font-size: 24px; color: #fff; margin-bottom: 8px; }
+.subscribe-box h2 { font-size: 24px; color: var(--c-accent-2); margin-bottom: 8px; }
 .subscribe-box p  { font-size: 14px; color: var(--c-text-mid); margin-bottom: 24px; }
 .email-row { display: flex; gap: 8px; max-width: 400px; margin: 0 auto; }
 .email-input {
@@ -373,6 +449,7 @@ footer { padding: 28px 24px; border-top: 1px solid var(--c-border); }
 @media (max-width: 620px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .team-grid    { grid-template-columns: repeat(2, 1fr); }
+  .req-grid     { grid-template-columns: 1fr; }
   .nav-links    { display: none; }
   .email-row    { flex-direction: column; }
   .subscribe-box { padding: 28px 20px; }

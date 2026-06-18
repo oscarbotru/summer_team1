@@ -21,11 +21,11 @@
       <span id="nav-studio"></span>
     </div>
     <div class="nav-links">
-      <a class="nav-link" href="#gallery">Галерея</a>
-      <a class="nav-link" href="#news">Devlog</a>
+      <a class="nav-link" href="#story">Сюжет</a>
+      <a class="nav-link" href="#requirements">Требования</a>
+      <a class="nav-link" href="#gallery">Скриншоты</a>
       <a class="nav-link" href="#team">Команда</a>
-      <a class="nav-link" href="#roadmap">Roadmap</a>
-      <a class="nav-link" href="#faq">FAQ</a>
+      <a class="nav-link" href="#news">Блог</a>
     </div>
   </div>
 </nav>
@@ -91,11 +91,30 @@
   </div>
 </section>
 
+<!-- ─── Сюжет ─── -->
+<section id="story">
+  <div class="container">
+    <div class="section-eyebrow">Сюжет</div>
+    <h2 class="section-title" id="story-title"></h2>
+    <p class="story-text" id="story-text"></p>
+  </div>
+</section>
+
+<!-- ─── Требования ─── -->
+<section id="requirements">
+  <div class="container">
+    <div class="section-eyebrow">Система</div>
+    <h2 class="section-title" id="req-title"></h2>
+    <p class="section-sub">Минимальные и рекомендуемые характеристики</p>
+    <div class="req-grid" id="req-grid"></div>
+  </div>
+</section>
+
 <!-- ─── Галерея ─── -->
 <section id="gallery">
   <div class="container">
-    <div class="section-eyebrow">Галерея</div>
-    <h2 class="section-title">Скриншоты и арты</h2>
+    <div class="section-eyebrow">Скриншоты</div>
+    <h2 class="section-title">Галерея</h2>
     <p class="section-sub">Визуальные материалы из игры — в процессе разработки</p>
     <div class="gallery-grid" id="gallery-grid"></div>
   </div>
@@ -104,15 +123,20 @@
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр">
   <span class="lightbox-close" id="lightbox-close" aria-label="Закрыть">✕</span>
-  <img class="lightbox-img" id="lightbox-img" src="https://gothic.thqnordic.com/_next/image?url=%2Fgame-sites%2Fgothic%2Feditions%2Fstandard-edition.png&w=3840&q=75" alt="" />
+  <img class="lightbox-img" id="lightbox-img" src="" alt="" />
 </div>
 
-<!-- ─── Devlog ─── -->
+<!-- Пасхалка -->
+<div class="easter-egg" id="easter-egg" aria-hidden="true">
+  <img class="easter-egg-img" id="easter-egg-img" src="" alt="" />
+</div>
+
+<!-- ─── Блог / Новости ─── -->
 <section id="news">
   <div class="container">
-    <div class="section-eyebrow">Devlog</div>
+    <div class="section-eyebrow">Блог</div>
     <h2 class="section-title">Последние новости</h2>
-    <p class="section-sub">Обновления о прогрессе разработки</p>
+    <p class="section-sub">Записи о ходе разработки Minecraft icon</p>
     <div class="news-list" id="news-list"></div>
   </div>
 </section>
@@ -124,16 +148,6 @@
     <h2 class="section-title">Кто делает игру</h2>
     <p class="section-sub" id="team-sub"></p>
     <div class="team-grid" id="team-grid"></div>
-  </div>
-</section>
-
-<!-- ─── Roadmap ─── -->
-<section id="roadmap">
-  <div class="container">
-    <div class="section-eyebrow">Roadmap</div>
-    <h2 class="section-title">Этапы разработки</h2>
-    <p class="section-sub">Что готово, что в работе, что впереди</p>
-    <div class="roadmap-list" id="roadmap-list"></div>
   </div>
 </section>
 
@@ -195,8 +209,8 @@ document.title = `${G.game.title} — ${G.studio.name}`;
 $('page-desc').content = G.game.description;
 
 /* ── nav ── */
-$('nav-mark').textContent = G.studio.name[0];
-$('nav-studio').textContent = G.studio.name;
+$('nav-mark').textContent = '😊';
+$('nav-studio').innerHTML = 'Emoj<span class="logo-ii">ii</span>';
 
 /* ── hero ── */
 $('hero-status').textContent  = G.game.status;
@@ -247,6 +261,25 @@ function tick() {
 }
 tick(); setInterval(tick, 1000);
 
+/* ── сюжет ── */
+$('story-title').textContent = G.story.title;
+$('story-text').textContent  = G.story.text;
+
+/* ── требования ── */
+$('req-title').textContent = G.requirements.title;
+[['Минимальные', G.requirements.minimum], ['Рекомендуемые', G.requirements.recommended]].forEach(([label, items]) => {
+  const card = el('div', 'req-card');
+  card.innerHTML = `<div class="req-card-title">${label}</div>`;
+  const list = el('ul', 'req-list');
+  items.forEach(item => {
+    const li = el('li', 'req-item');
+    li.innerHTML = `<span class="req-label">${item.label}</span><span class="req-value">${item.value}</span>`;
+    list.appendChild(li);
+  });
+  card.appendChild(list);
+  $('req-grid').appendChild(card);
+});
+
 /* ── галерея ── */
 G.gallery.forEach(item => {
   const div = el('div','gallery-item');
@@ -283,6 +316,29 @@ $('lightbox').addEventListener('click', e => { if(e.target === $('lightbox')) cl
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
 
 /* ── новости ── */
+let easterEggTimer = null;
+let easterEggClicks = 0;
+let easterEggClickReset = null;
+
+function showEasterEgg(src) {
+  const overlay = $('easter-egg');
+  const img     = $('easter-egg-img');
+  const duration = G.easterEgg?.durationMs ?? 4000;
+
+  img.src = src;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  clearTimeout(easterEggTimer);
+  easterEggTimer = setTimeout(() => {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    img.src = '';
+  }, duration);
+}
+
 G.news.forEach(item => {
   const d    = parseDate(item.date);
   const card = el('div','news-card');
@@ -297,6 +353,21 @@ G.news.forEach(item => {
       <div class="news-title">${item.title}</div>
       <div class="news-text">${item.text}</div>
     </div>`;
+
+  if (item.easterEgg) {
+    card.classList.add('news-card--secret');
+    card.addEventListener('click', () => {
+      easterEggClicks++;
+      clearTimeout(easterEggClickReset);
+      if (easterEggClicks >= 3) {
+        easterEggClicks = 0;
+        showEasterEgg(item.easterEgg);
+        return;
+      }
+      easterEggClickReset = setTimeout(() => { easterEggClicks = 0; }, 700);
+    });
+  }
+
   $('news-list').appendChild(card);
 });
 
@@ -316,25 +387,6 @@ G.team.forEach(member => {
     <div class="team-role">${member.role}</div>
     <div class="team-links">${links}</div>`;
   $('team-grid').appendChild(card);
-});
-
-/* ── roadmap ── */
-const rmLabels = { done:'Готово', active:'В процессе' };
-G.roadmap.forEach((step, i) => {
-  const isLast = i === G.roadmap.length - 1;
-  const badge  = step.status === 'todo' ? step.date : rmLabels[step.status];
-  const row    = el('div','rm-row');
-  row.innerHTML = `
-    <div class="rm-spine">
-      <div class="rm-dot ${step.status}"></div>
-      ${!isLast ? '<div class="rm-line"></div>' : ''}
-    </div>
-    <div class="rm-content">
-      <div class="rm-title">${step.title}</div>
-      <div class="rm-desc">${step.desc}</div>
-      <span class="rm-badge ${step.status}">${badge}</span>
-    </div>`;
-  $('roadmap-list').appendChild(row);
 });
 
 /* ── FAQ ── */
@@ -370,7 +422,7 @@ function handleSubscribe() {
     msg.textContent = 'Введи корректный email.';
     return;
   }
-  msg.style.color = '#5cb87a';
+  msg.style.color = 'var(--c-lime)';
   msg.textContent = `Записали! Пришлём на ${email} когда выйдет.`;
   input.value = '';
 }
