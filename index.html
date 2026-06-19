@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="icon" href="drawing_2.svg" type="image/svg+xml" />
   <script src="config.js"></script>
 </head>
 <body>
@@ -50,7 +51,7 @@
     <!-- Таймер -->
     <div class="timer-wrap">
       <div class="timer-label-top" id="timer-label"></div>
-      <div class="timer">
+      <div class="timer" id="timer">
         <div class="timer-cell">
           <div class="timer-num" id="t-days">00</div>
           <div class="timer-unit">дней</div>
@@ -71,19 +72,19 @@
           <div class="timer-unit">секунд</div>
         </div>
       </div>
+      <div class="timer-released" id="timer-released" hidden>
+        <p class="timer-released-title" id="timer-released-title"></p>
+        <p class="timer-released-text" id="timer-released-text"></p>
+      </div>
     </div>
 
     <!-- CTA -->
     <div class="hero-cta">
       <button class="btn btn-primary"
-        onclick="document.querySelector('#subscribe').scrollIntoView({behavior:'smooth'})">
+        onclick="document.querySelector('#news').scrollIntoView({behavior:'smooth'})">
         <i class="ti ti-bell" aria-hidden="true"></i>
         Следить за новостями
       </button>
-      <a class="btn btn-ghost" id="hero-trailer" href="#" target="_blank" rel="noopener">
-        <i class="ti ti-player-play" aria-hidden="true"></i>
-        Смотреть трейлер
-      </a>
     </div>
 
     <!-- Платформы -->
@@ -161,24 +162,6 @@
   </div>
 </section>
 
-<!-- ─── Подписка ─── -->
-<section id="subscribe">
-  <div class="container">
-    <div class="subscribe-box">
-      <h2>Узнай первым о релизе</h2>
-      <p>Оставь email — пришлём письмо в день выхода</p>
-      <div class="email-row">
-        <input class="email-input" type="email" placeholder="твой@email.com"
-               id="email-input" aria-label="Email для подписки" />
-        <button class="btn btn-primary" onclick="handleSubscribe()">
-          <i class="ti ti-send" aria-hidden="true"></i> Подписаться
-        </button>
-      </div>
-      <p id="subscribe-msg" style="margin-top:12px;font-size:13px;min-height:18px;"></p>
-    </div>
-  </div>
-</section>
-
 <!-- ─── Footer ─── -->
 <footer>
   <div class="footer-inner">
@@ -209,7 +192,7 @@ document.title = `${G.game.title} — ${G.studio.name}`;
 $('page-desc').content = G.game.description;
 
 /* ── nav ── */
-$('nav-mark').textContent = '😊';
+$('nav-mark').innerHTML = '<img src="drawing_2.svg" alt="" width="112" height="112" aria-hidden="true" />';
 $('nav-studio').innerHTML = 'Emoj<span class="logo-ii">ii</span>';
 
 /* ── hero ── */
@@ -217,7 +200,6 @@ $('hero-status').textContent  = G.game.status;
 $('hero-title').textContent   = G.game.title;
 $('hero-tagline').textContent = G.game.tagline;
 $('hero-desc').textContent    = G.game.subtitle;
-$('hero-trailer').href        = G.game.trailer;
 
 /* hero background — опциональная картинка из конфига */
 const heroBgImg     = $('hero-bg-img');
@@ -244,11 +226,23 @@ G.game.platforms.forEach(p => {
 
 /* ── таймер ── */
 const releaseDate = parseDate(G.release.date);
-$('timer-label').textContent =
-  `${G.release.label} · ${releaseDate.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})}`;
+const timerEl = $('timer');
+const timerReleasedEl = $('timer-released');
+$('timer-released-title').textContent = G.release.releasedTitle;
+$('timer-released-text').textContent  = G.release.releasedText;
 
 function tick() {
   let diff = Math.max(0, Math.floor((releaseDate - new Date()) / 1000));
+  if (diff === 0) {
+    timerEl.hidden = true;
+    timerReleasedEl.hidden = false;
+    $('timer-label').textContent = G.release.label;
+    return;
+  }
+  timerEl.hidden = false;
+  timerReleasedEl.hidden = true;
+  $('timer-label').textContent =
+    `${G.release.label} · ${releaseDate.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})}`;
   const d = Math.floor(diff/86400); diff %= 86400;
   const h = Math.floor(diff/3600);  diff %= 3600;
   const m = Math.floor(diff/60);
@@ -339,7 +333,9 @@ function showEasterEgg(src) {
   }, duration);
 }
 
-G.news.forEach(item => {
+[...G.news]
+  .sort((a, b) => parseDate(b.date) - parseDate(a.date))
+  .forEach(item => {
   const d    = parseDate(item.date);
   const card = el('div','news-card');
   const tag  = item.tag.toLowerCase();
@@ -411,22 +407,6 @@ $('footer-copy').textContent = `© ${new Date().getFullYear()} ${G.studio.name} 
   a.textContent = label;
   $('footer-links').appendChild(a);
 });
-
-/* ── подписка ── */
-function handleSubscribe() {
-  const input = $('email-input');
-  const msg   = $('subscribe-msg');
-  const email = input.value.trim();
-  if (!email || !email.includes('@')) {
-    msg.style.color = 'var(--c-accent-2)';
-    msg.textContent = 'Введи корректный email.';
-    return;
-  }
-  msg.style.color = 'var(--c-lime)';
-  msg.textContent = `Записали! Пришлём на ${email} когда выйдет.`;
-  input.value = '';
-}
-$('email-input').addEventListener('keydown', e => { if(e.key==='Enter') handleSubscribe(); });
 </script>
 </body>
 </html>
