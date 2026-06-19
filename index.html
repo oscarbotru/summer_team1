@@ -49,7 +49,7 @@
     <p class="hero-desc"    id="hero-desc"></p>
 
     <!-- Таймер -->
-    <div class="timer-wrap">
+    <div class="timer-wrap" id="timer-wrap">
       <div class="timer-label-top" id="timer-label"></div>
       <div class="timer" id="timer">
         <div class="timer-cell">
@@ -72,7 +72,7 @@
           <div class="timer-unit">секунд</div>
         </div>
       </div>
-      <div class="timer-released" id="timer-released" hidden>
+      <div class="timer-released" id="timer-released">
         <p class="timer-released-title" id="timer-released-title"></p>
         <p class="timer-released-text" id="timer-released-text"></p>
       </div>
@@ -226,21 +226,18 @@ G.game.platforms.forEach(p => {
 
 /* ── таймер ── */
 const releaseDate = parseDate(G.release.date);
-const timerEl = $('timer');
-const timerReleasedEl = $('timer-released');
+const timerWrap = $('timer-wrap');
 $('timer-released-title').textContent = G.release.releasedTitle;
 $('timer-released-text').textContent  = G.release.releasedText;
 
 function tick() {
   let diff = Math.max(0, Math.floor((releaseDate - new Date()) / 1000));
   if (diff === 0) {
-    timerEl.hidden = true;
-    timerReleasedEl.hidden = false;
+    timerWrap.classList.add('is-released');
     $('timer-label').textContent = G.release.label;
     return;
   }
-  timerEl.hidden = false;
-  timerReleasedEl.hidden = true;
+  timerWrap.classList.remove('is-released');
   $('timer-label').textContent =
     `${G.release.label} · ${releaseDate.toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})}`;
   const d = Math.floor(diff/86400); diff %= 86400;

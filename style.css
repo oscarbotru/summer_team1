@@ -154,7 +154,7 @@ section:last-of-type { border-bottom: none; }
   flex-shrink: 0;
 }
 .timer-released {
-  display: inline-block;
+  display: none;
   background: var(--c-surface);
   border: 1px solid var(--c-border-mid);
   border-radius: var(--radius-lg);
@@ -162,6 +162,8 @@ section:last-of-type { border-bottom: none; }
   max-width: 420px;
   text-align: center;
 }
+.timer-wrap.is-released .timer { display: none; }
+.timer-wrap.is-released .timer-released { display: inline-block; }
 .timer-released-title {
   font-family: var(--font-display);
   font-size: 22px; font-weight: 800;
