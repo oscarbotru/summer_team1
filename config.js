@@ -19,7 +19,7 @@ const GAME_CONFIG = {
   },
 
   game: {
-    title:    "Minecraft icon",
+    title:    "Minecraft In Motion",
     tagline:  "Приключение в мире блоков, эмодзи и неожиданных открытий.",
     subtitle: "Помоги Стиву освоить мир — от первого прыжка до первых слов.",
     description:
